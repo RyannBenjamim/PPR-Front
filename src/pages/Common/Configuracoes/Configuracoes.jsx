@@ -38,7 +38,7 @@ function configuracoes() {
         if (response.caminho) {
           // Set the initial profile image URL
           setProfileImageUrl(
-            `http://localhost:3000/usuarios/${
+            `https://ppr-api-smoky.vercel.app/usuarios/${
               response.id
             }/profile-image?timestamp=${new Date().getTime()}`
           );
@@ -89,7 +89,7 @@ function configuracoes() {
         throw new Error("Dados do usuário não disponíveis");
       }
       const response = await fetch(
-        `http://localhost:3000/usuarios/${usuario.id}`,
+        `https://ppr-api-smoky.vercel.app/usuarios/${usuario.id}`,
         {
           method: "POST",
           body: formData,
@@ -104,7 +104,7 @@ function configuracoes() {
         text: "Imagem de perfil atualizada com sucesso!",
         type: "success",
       });
-      const newProfileImageUrl = `http://localhost:3000/usuarios/${
+      const newProfileImageUrl = `https://ppr-api-smoky.vercel.app/usuarios/${
         usuario.id
       }/profile-image?timestamp=${new Date().getTime()}`;
       setProfileImageUrl(newProfileImageUrl);
@@ -147,7 +147,7 @@ function configuracoes() {
       }
       
       const response = await fetch(
-        `http://localhost:3000/usuarios/${usuario.id}/trocar-senha`,
+        `https://ppr-api-smoky.vercel.app/usuarios/${usuario.id}/trocar-senha`,
         {
           method: "POST",
           headers: {
@@ -231,7 +231,7 @@ function configuracoes() {
                 src={
                   profileImageUrl ||
                   (usuario.caminho
-                    ? `http://localhost:3000/usuarios/${usuario.id}/profile-image`
+                    ? `https://ppr-api-smoky.vercel.app/usuarios/${usuario.id}/profile-image`
                     : defaultProfilePicture)
                 }
                 alt="Foto de perfil"

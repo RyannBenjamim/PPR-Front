@@ -34,7 +34,7 @@ const GerenciarCursos = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/modulos", {
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/modulos", {
         nome,
         descricao,
         playlistUrl,
@@ -78,7 +78,7 @@ const GerenciarCursos = () => {
     if (!confirmation) return;
 
     try {
-      await axios.delete(`http://localhost:3000/modulos/${id}`);
+      await axios.delete(`https://ppr-api-smoky.vercel.app/modulos/${id}`);
       await getData();
     } catch (error) {
       console.error("Erro ao excluir curso:", error);

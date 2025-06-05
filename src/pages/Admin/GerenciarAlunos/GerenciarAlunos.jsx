@@ -40,7 +40,7 @@ const GerenciarAlunos = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost:3000/usuarios", { 
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/usuarios", { 
         nome,
         email,
         tipoUsuario,
@@ -89,7 +89,7 @@ const GerenciarAlunos = () => {
       return
     } 
 
-    await axios.delete(`http://localhost:3000/usuarios/${id}`)
+    await axios.delete(`https://ppr-api-smoky.vercel.app/usuarios/${id}`)
     await getAlunos()
     navigate("/admin/gerenciar-alunos")
   }
@@ -156,7 +156,7 @@ const GerenciarAlunos = () => {
                     {currentAlunos.map((aluno) => (
                       <InfoCard 
                         key={aluno.id}
-                        img={aluno.caminho ? `http://localhost:3000/usuarios/${aluno.id}/profile-image` : defaultProfilePicture}
+                        img={aluno.caminho ? `https://ppr-api-smoky.vercel.app/usuarios/${aluno.id}/profile-image` : defaultProfilePicture}
                         title={aluno.nome} 
                         subtitle={aluno.email} 
                         link={aluno.id}

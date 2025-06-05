@@ -57,7 +57,7 @@ const CorrigirRedacao = () => {
 
     try {
       await axios.post(
-        `http://localhost:3000/correcoes/${userID}/upload`,
+        `https://ppr-api-smoky.vercel.app/correcoes/${userID}/upload`,
         formData,
         {
           headers: {
@@ -116,7 +116,7 @@ const CorrigirRedacao = () => {
             text_size="16px"
           />
 
-          <Link to={`http://localhost:3000/redacoes/download/${redacao_id}`}>
+          <Link to={`https://ppr-api-smoky.vercel.app/redacoes/download/${redacao_id}`}>
             <Button 
               text_size="20px" 
               text_color="#E0E0E0" 

@@ -119,7 +119,7 @@ const Novaredacao = () => {
     formData.append("file", fileBlob, fileName.endsWith(".pdf") ? fileName : `${fileName}.pdf`);
     // Adicionar o ID do aluno no próprio formData para garantir que o backend o receba
     formData.append("usuarioId", alunoId);    try { 
-      const response = await axios.post(`http://localhost:3000/redacoes/${alunoId}/upload`, formData, {
+      const response = await axios.post(`https://ppr-api-smoky.vercel.app/redacoes/${alunoId}/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -176,7 +176,7 @@ const Novaredacao = () => {
               let correcao = null;
               try {
                 // Verificar se a redação já tem correção
-                const correcaoResponse = await axios.get(`http://localhost:3000/correcoes/redacao/${item.id}`);
+                const correcaoResponse = await axios.get(`https://ppr-api-smoky.vercel.app/correcoes/redacao/${item.id}`);
                 if (correcaoResponse.data && correcaoResponse.data.data) {
                   correcao = correcaoResponse.data.data;
                 }

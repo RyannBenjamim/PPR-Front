@@ -93,7 +93,7 @@ const NovaProposta = () => {
     formData.append("file", fileBlob, fileName.endsWith(".pdf") ? fileName : `${fileName}.pdf`);
 
     try {
-      const response = await axios.post("http://localhost:3000/propostas", formData, {
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/propostas", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -144,7 +144,7 @@ const NovaProposta = () => {
       navigate("/admin/nova-proposta")
       return
     }
-    await axios.delete(`http://localhost:3000/propostas/${id}`)
+    await axios.delete(`https://ppr-api-smoky.vercel.app/propostas/${id}`)
     navigate("/admin/nova-proposta")
   }
 

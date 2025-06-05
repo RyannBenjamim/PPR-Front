@@ -23,7 +23,7 @@ const DetalhesTurma = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:3000/turmas/${turma_id}`, { "nome": turma })
+      const response = await axios.put(`https://ppr-api-smoky.vercel.app/turmas/${turma_id}`, { "nome": turma })
 
       setFormMessage({ 
         type: "success", 
@@ -41,7 +41,7 @@ const DetalhesTurma = () => {
     const confirmation = confirm("Você tem certeza que deseja excluir essa turma?")
     if (!confirmation) return
 
-    await axios.delete(`http://localhost:3000/turmas/${turma_id}`)
+    await axios.delete(`https://ppr-api-smoky.vercel.app/turmas/${turma_id}`)
     navigate("/admin/gerenciar-turmas")
   }
 

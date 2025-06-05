@@ -19,7 +19,7 @@ const Pagamentos = () => {
   useEffect(() => {
     const fetchPagamentos = async () => {
       try {
-        const res = await fetch("http://localhost:3000/pagamentos");
+        const res = await fetch("https://ppr-api-smoky.vercel.app/pagamentos");
         const json = await res.json();
         const pagamentos = json.data;
 
@@ -28,7 +28,7 @@ const Pagamentos = () => {
         const pagamentosComUsuario = await Promise.all(
           pagamentos.map(async (item) => {
             if (!usuariosMap[item.usuarioId]) {
-              const resUsuario = await fetch(`http://localhost:3000/usuarios/${item.usuarioId}`);
+              const resUsuario = await fetch(`https://ppr-api-smoky.vercel.app/usuarios/${item.usuarioId}`);
               const usuarioJson = await resUsuario.json();
               const usuarioData = usuarioJson.data;
 
@@ -37,7 +37,7 @@ const Pagamentos = () => {
                 turma: usuarioData.turmaId
               };
 
-              const resTurma = await fetch(`http://localhost:3000/turmas/${usuarioData.turmaId}`);
+              const resTurma = await fetch(`https://ppr-api-smoky.vercel.app/turmas/${usuarioData.turmaId}`);
               const turmaJson = await resTurma.json();
               const turmaData = turmaJson.data;
 

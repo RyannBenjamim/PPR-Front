@@ -24,7 +24,7 @@ const [isDownloading, setIsDownloading] = useState(false);
 const handleDownloadProposta = async () => {
   try {
     setIsDownloading(true);
-    const response = await fetch('http://localhost:3000/propostas/download', {
+    const response = await fetch('https://ppr-api-smoky.vercel.app/propostas/download', {
       method: 'GET',
       headers: {
         Accept: 'application/pdf',

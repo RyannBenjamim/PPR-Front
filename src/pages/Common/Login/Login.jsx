@@ -19,7 +19,7 @@ const Login = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost:3000/usuarios/login", { email, password })
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/usuarios/login", { email, password })
 
       localStorage.setItem("user_access_data", JSON.stringify({
         id: response.data.data.id,

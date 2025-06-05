@@ -91,7 +91,7 @@ const Correcao = () => {
           </div>
 
           <div className={styles.buttons}>
-            <Link to={`http://localhost:3000/redacoes/download/${modalData?.id}`}>
+            <Link to={`https://ppr-api-smoky.vercel.app/redacoes/download/${modalData?.id}`}>
               <Button 
                 text_size="20px" 
                 text_color="#E0E0E0" 
@@ -99,7 +99,7 @@ const Correcao = () => {
                 bg_color="#DA9E00"
               ><i className="fa-solid fa-download"></i> BAIXAR REDAÇÃO</Button>
             </Link>
-            <Link to={`http://localhost:3000/correcoes/download/${modalData?.correcao?.id}`}>
+            <Link to={`https://ppr-api-smoky.vercel.app/correcoes/download/${modalData?.correcao?.id}`}>
               <Button 
                 text_size="20px" 
                 text_color="#E0E0E0" 

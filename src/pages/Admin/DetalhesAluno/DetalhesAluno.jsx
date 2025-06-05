@@ -31,7 +31,7 @@ const DetalhesAluno = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:3000/usuarios/${aluno_id}`, { 
+      const response = await axios.put(`https://ppr-api-smoky.vercel.app/usuarios/${aluno_id}`, { 
         nome,
         email,
         tipoUsuario,
@@ -54,7 +54,7 @@ const DetalhesAluno = () => {
     const confirmation = confirm(`Você tem certeza que deseja excluir o(a) aluno(a) ${alunoData.nome}?`)
     if (!confirmation) return
 
-    await axios.delete(`http://localhost:3000/usuarios/${aluno_id}`)
+    await axios.delete(`https://ppr-api-smoky.vercel.app/usuarios/${aluno_id}`)
     navigate("/admin/gerenciar-alunos")
   }
 

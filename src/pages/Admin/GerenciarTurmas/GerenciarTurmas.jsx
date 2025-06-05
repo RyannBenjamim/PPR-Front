@@ -33,7 +33,7 @@ const GerenciarTurmas = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/turmas", { "nome": turma });
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/turmas", { "nome": turma });
 
       setFormMessage({
         type: "success",
@@ -72,7 +72,7 @@ const GerenciarTurmas = () => {
       return;
     }
 
-    await axios.delete(`http://localhost:3000/turmas/${id}`);
+    await axios.delete(`https://ppr-api-smoky.vercel.app/turmas/${id}`);
     await getData();
   };
 

@@ -33,7 +33,7 @@ const Simulados = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/simulados", {
+      const response = await axios.post("https://ppr-api-smoky.vercel.app/simulados", {
         turmaId: turma,
         titulo: titulo,
       });

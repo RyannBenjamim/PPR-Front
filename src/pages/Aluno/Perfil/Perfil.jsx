@@ -92,7 +92,7 @@ const Perfil = () => {
           <div>
             <div className={styles.header_container}>
               <img className={styles.img_container} 
-              src={usuario.caminho ? `http://localhost:3000/usuarios/${usuario.id}/profile-image` : defaultProfilePicture} alt="" />
+              src={usuario.caminho ? `https://ppr-api-smoky.vercel.app/usuarios/${usuario.id}/profile-image` : defaultProfilePicture} alt="" />
               <h3>{usuario.nome && usuario.nome}</h3>
               <p>Entrou em 24/04/2025</p>
             </div>
