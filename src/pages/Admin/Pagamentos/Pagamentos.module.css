@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  flex-direction: column;
+  margin: 2px;
+}
+
+.containerCard {
+  display: flex;
+  gap: 40px; /* espaço entre os cards */
+  
+
+}
+
+.chartContainer:hover {
+  transform: scale(1.01);
+}
+.containerGrafico svg {
+  width: 500px !important; /* define o tamanho do gráfico */
+  height: 400px !important;
+  
+}
+
+.tabela {
+  width: 100%;
+  color: black;
+}
+
+.statusPago {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.statusPendente {
+  color: #FF9800;
+  font-weight: bold;
+}
+
+.statusAtraso {
+  color: #F44336;
+  font-weight: bold;
+}

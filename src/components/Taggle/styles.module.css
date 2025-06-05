@@ -1,0 +1,28 @@
+.toggle_container {
+  display: flex;
+  padding: 4px;
+  border-radius: 8px;
+  width: fit-content;
+  font-family: sans-serif;
+
+}
+
+.toggle_button {
+  padding: 8px 16px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #fdfdfd;
+  border: 0.5px solid #5d5a5a;
+  transition: all 0.5s ease;
+
+}
+
+.active {
+  background-color: #DA9E00;
+  color: rgb(255, 255, 255);
+  height: 50px;
+  font-weight: bold;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}

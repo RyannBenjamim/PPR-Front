@@ -1,0 +1,94 @@
+.container {
+  width: 100%;
+  height: 100vh;
+}
+.main_content {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  max-width: 1500px;
+  height: calc(100vh - 70px);
+  margin: 0 auto;
+}
+
+.main_content .bg_left {
+  width: 50%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #242424;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.main_content .bg_left .form_title {
+  color: #e0e0e0;
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+}
+
+.main_content .proposta_container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.main_content .bg_left .pagination {
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+}
+
+.main_content .bg_right {
+  width: 40%;
+  justify-content: center;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: #242424;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.main_content .bg_right .form_title {
+  color: #e0e0e0;
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+}
+
+.main_content .bg_right .upload_container {
+  justify-content: center;
+}
+.main_content .bg_right .upload_container .img {
+  height: 100px;
+  width: 250px;
+  margin-top: 150px;
+  margin-left: 100px;
+}
+
+.main_content .bg_right .button_container {
+  margin-top: 20px;
+}
+.main_content .bg_right .button_upload {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.main_content .bg_right .button_container .file_name {
+  color: #e0e0e0;
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-left: 100px;
+  gap: 20px;
+}
+.main_content .bg_right .upload_container .info_container {
+  margin-top: 20px;
+}
+.main_content .bg_right .submit_button {
+  margin-top: 60px;
+  justify-content: center;
+}
