@@ -24,6 +24,13 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.main_content .bg_left .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .main_content .bg_left .infos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -70,6 +77,10 @@
   .main_content .bg_left,
   .main_content .bg_right {
     width: 100%;
+  }
+
+  .main_content .bg_left {
+    min-height: 600px;
   }
 
   .main_content .bg_right {
