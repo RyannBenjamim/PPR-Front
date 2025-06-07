@@ -12,10 +12,11 @@ import fetchData from "../../../utils/fetchData"
 import useUseful from "../../../utils/useUseful"
 import GraficoNotas from "../../../components/GraficoLinha/GraficoLinha"
 import RedacoesTabela from "../../../components/RedacoesTabela/RedacoesTabela"
+import Loading from "../../../components/Loading/Loading"
 
 const DetalhesAluno = () => {
   const { aluno_id } = useParams()
-  const [alunoData, setAlunoData] = useState([])
+  const [alunoData, setAlunoData] = useState(null)
   const [redacoes, setRedacoes] = useState([])
   const [notasRedacoes, setNotasRedacoes] = useState([])
   const [formMessage, setFormMessage] = useState(null)
@@ -24,11 +25,15 @@ const DetalhesAluno = () => {
   const [tipoUsuario, setTipoUsuario] = useState("")
   const [turma, setTurma] = useState("")
   const [turmas, setTurmas] = useState([])
+  const [isLoadingData, setIsLoadingData] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+
   const { brasilFormatData, avgNotes } = useUseful()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    setIsLoading(true)
 
     try {
       const response = await axios.put(`https://ppr-api-smoky.vercel.app/usuarios/${aluno_id}`, { 
@@ -36,41 +41,49 @@ const DetalhesAluno = () => {
         email,
         tipoUsuario,
         turmaId: turma 
-      })
+      });
 
       setFormMessage({ 
         type: "success", 
         text: `Usuário(a) ${response.data.data.nome} atualizado(a) com sucesso.` 
-      })
+      });
     } catch (error) {
       setFormMessage({
         type: "error",
         text: error.response.data.error
       });
+    } finally {
+      setIsLoading(false)
     }
-  }
+  };
 
   const deleteAluno = async () => {
     const confirmation = confirm(`Você tem certeza que deseja excluir o(a) aluno(a) ${alunoData.nome}?`)
-    if (!confirmation) return
+    if (!confirmation) return;
 
     await axios.delete(`https://ppr-api-smoky.vercel.app/usuarios/${aluno_id}`)
     navigate("/admin/gerenciar-alunos")
-  }
+  };
 
   useEffect(() => {
     const getData = async () => {
-      const { getTurmas, getAlunoById } = fetchData() 
-      const turmasResponse = await getTurmas()
-      const alunoResponse = await getAlunoById(aluno_id)
+      setIsLoadingData(true)
 
-      const options = turmasResponse.map(item => ({
-        value: item.id,       
-        label: item.nome
-      }))
+      try {
+        const { getTurmas, getAlunoById } = fetchData()
+        const turmasResponse = await getTurmas();
+        const alunoResponse = await getAlunoById(aluno_id)
 
-      setTurmas(options)
-      setAlunoData(alunoResponse)
+        const options = turmasResponse.map(item => ({
+          value: item.id,       
+          label: item.nome
+        }));
+
+        setTurmas(options);
+        setAlunoData(alunoResponse)
+      } finally {
+        setIsLoadingData(false)
+      }
     }
 
     getData()
@@ -78,15 +91,21 @@ const DetalhesAluno = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { getRedacoes } = fetchData() 
-      const response = await getRedacoes(aluno_id, true)
+      setIsLoadingData(true)
 
-      const notas = response.map(item => (
-        { data: item.correcao.data, nota: item.correcao.nota }
-      ))
+      try {
+        const { getRedacoes } = fetchData();
+        const response = await getRedacoes(aluno_id, true);
 
-      setRedacoes(response)
-      setNotasRedacoes(notas)
+        const notas = response.map(item => (
+          { data: item.correcao.data, nota: item.correcao.nota }
+        ));
+
+        setRedacoes(response);
+        setNotasRedacoes(notas);
+      } finally {
+        setIsLoadingData(false)
+      }
     }
 
     getData()
@@ -94,63 +113,71 @@ const DetalhesAluno = () => {
 
   useEffect(() => {
     if (alunoData) {
-      setNome(alunoData.nome || "")
-      setEmail(alunoData.email || "")
-      setTipoUsuario(alunoData.tipoUsuario || "")
-      setTurma(alunoData.turmaId || "")
+      setNome(alunoData.nome || "");
+      setEmail(alunoData.email || "");
+      setTipoUsuario(alunoData.tipoUsuario || "");
+      setTurma(alunoData.turmaId || "");
     }
-  }, [alunoData])
+  }, [alunoData]);
 
   return (
     <div className={styles.container}>
-      <Title title={`Gerenciar alunos - ${alunoData.nome && alunoData.nome}`} />
+      <Title title={`Gerenciar alunos - ${alunoData && alunoData.nome ? alunoData.nome : ""}`} />
 
       <div className={styles.main_content}>
         <div className={styles.bg_left}>
-          <DetailsCard  
-            title="Nome"
-            content={alunoData.nome && alunoData.nome}
-            bg_color="#1A1A1A"
-            text_size="12px"
-          />
+          {isLoadingData ? (
+            <div className={styles.loading}><Loading /></div>
+          ) : (
+            <>
+              <DetailsCard  
+                title="Nome"
+                content={alunoData?.nome}
+                bg_color="#1A1A1A"
+                text_size="12px"
+              />
 
-          <div className={styles.infos}>
-            <DetailsCard  
-              title="Email"
-              content={alunoData.email && alunoData.email}
-              bg_color="#1F1F1F"
-              text_size="12px"
-            />
-            <DetailsCard  
-              title="Data de matrícula"
-              content={alunoData.dataCriacao && brasilFormatData(alunoData.dataCriacao)}
-              bg_color="#1F1F1F"
-              text_size="12px"
-            />
-            <DetailsCard  
-              title="Tipo de usuário"
-              content={alunoData.tipoUsuario && alunoData.tipoUsuario}
-              bg_color="#1F1F1F"
-              text_size="12px"
-            />
-            <DetailsCard  
-              title="Média das notas"
-              content={notasRedacoes.length === 0 ? 0 : avgNotes(notasRedacoes).toFixed(2)}
-              bg_color="#1F1F1F"
-              text_size="12px"
-            />
-          </div>
+              <div className={styles.infos}>
+                <DetailsCard  
+                  title="Email"
+                  content={alunoData?.email}
+                  bg_color="#1F1F1F"
+                  text_size="12px"
+                />
+                <DetailsCard  
+                  title="Data de matrícula"
+                  content={brasilFormatData(alunoData?.dataCriacao)}
+                  bg_color="#1F1F1F"
+                  text_size="12px"
+                />
+                <DetailsCard  
+                  title="Tipo de usuário"
+                  content={alunoData?.tipoUsuario}
+                  bg_color="#1F1F1F"
+                  text_size="12px"
+                />
+                <DetailsCard  
+                  title="Média das notas"
+                  content={notasRedacoes?.length === 0 ? 0 : avgNotes(notasRedacoes).toFixed(2)}
+                  bg_color="#1F1F1F"
+                  text_size="12px"
+                />
+              </div>
 
-          <RedacoesTabela redacoes={redacoes} />
-          <GraficoNotas array={notasRedacoes} height_size="300px" />
+              <RedacoesTabela redacoes={redacoes} />
+              <GraficoNotas array={notasRedacoes} height_size="300px" />
 
-          <Button 
-            text_size="15px" 
-            text_color="#E0E0E0" 
-            padding_sz="10px" 
-            bg_color="#B2433F" 
-            onClick={deleteAluno}
-          ><i class="fa-solid fa-trash"></i> EXCLUIR ALUNO</Button>
+              <Button 
+                text_size="15px" 
+                text_color="#E0E0E0" 
+                padding_sz="10px" 
+                bg_color="#B2433F" 
+                onClick={deleteAluno}
+              >
+                <i className="fa-solid fa-trash"></i> EXCLUIR ALUNO
+              </Button>
+            </>
+          )}
         </div>
 
         <div className={styles.bg_right}>
@@ -201,7 +228,15 @@ const DetalhesAluno = () => {
               type={formMessage ? formMessage.type : ""} 
             />
 
-            <Button text_size="20px" text_color="#E0E0E0" padding_sz="10px" bg_color="#DA9E00">ATUALIZAR</Button>
+            <Button 
+              text_size="20px" 
+              text_color="#E0E0E0" 
+              padding_sz="10px" 
+              bg_color="#DA9E00"
+              isLoading={isLoading}
+            >
+              ATUALIZAR
+            </Button>
           </form>
         </div>
       </div>
