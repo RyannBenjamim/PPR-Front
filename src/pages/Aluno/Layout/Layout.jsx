@@ -1,8 +1,8 @@
 import styles from "./styles.module.css"
 import { Outlet } from "react-router-dom"
 import Header from "../../../components/Header/Header"
+import Button from "../../../components/Button/Button"
 import { Link, useNavigate } from "react-router-dom"
-
 import logo from "../../../images/logo02.png"
 import { useState } from "react"
 
@@ -17,34 +17,50 @@ const links = [
 
 const AlunoLayout = () => {
   const [isClicked, setIsClicked] = useState(false)
+  const [modalIsClicked, setModalIsClicked] = useState(false)
+  
   const menuBtnClick = () => setIsClicked(prev => !prev)
   const navigate = useNavigate()
-
+  
   const verificandoSeExpirou = async () => {
     const data = localStorage.getItem('user_access_data')
     if (!data) return
     const { id } = JSON.parse(data)
-
+  
     try {
       const { getAlunoById } = fetchData()
       await getAlunoById(id)
     } catch (error) {
       if (error.response?.data?.message === "Token expirado.") {
-        alert("Sua sessão expirou, faça login novamente para acessar nossos serviços.")
-        localStorage.removeItem("user_access_data")
-        navigate("/")
+        setModalIsClicked(true)
       } else {
         console.error("Erro ao buscar os dados:", error)
       }
     }
   }
-
+  
   useEffect(() => {
     verificandoSeExpirou()
   }, [])
 
   return (
     <div className={styles.container}>
+      <div className={`${modalIsClicked ? styles.modal_container : styles.modal_container_closed}`}>
+        <div className={styles.modal}>
+          <p className={styles.modal_text}>Sua sessão expirou, faça login novamente para acessar nossos serviços.</p>
+          <Button 
+            text_size="16px" 
+            padding_sz="15px" 
+            bg_color="#1A1A1A"
+            onClick={() => {
+              navigate("/")
+            }}
+          >
+            <i class="fa-solid fa-circle-check"></i>
+            Ok
+          </Button>
+        </div>
+      </div>
 
       <aside className={styles.header_mobile}>
         <img src={logo} />
