@@ -1,10 +1,7 @@
 import axios from "axios"
+import useUseful from "./useUseful"
 
-const getUserToken = () => {
-  const response = localStorage.getItem('user_access_data')
-  const { token } = JSON.parse(response)
-  return token
-}
+const { getHeaders } = useUseful()
 
 const API_URL = "https://ppr-api-smoky.vercel.app"
 
@@ -29,7 +26,7 @@ const fetchData = () => {
   }
 
   const getAlunoById = async (id) => {
-    const response = await axios.get(`${API_URL}/usuarios/${id}`)
+    const response = await axios.get(`${API_URL}/usuarios/${id}`, { headers: getHeaders() })
     return response.data.data
   }
 
