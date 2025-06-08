@@ -1,10 +1,10 @@
 import styles from "./styles.module.css"
 import { Outlet } from "react-router-dom"
 import Header from "../../../components/Header/Header"
-import { Link } from "react-router-dom"
-
+import { Link, useNavigate } from "react-router-dom"
 import logo from "../../../images/logo02.png"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import fetchData from "../../../utils/fetchData"
 
 const links = [
   { name: "Dashboard", icon: "fa-solid fa-house", path: "" },
@@ -22,8 +22,31 @@ const links = [
 
 const AdminLayout = () => {
   const [isClicked, setIsClicked] = useState(false)
-
   const menuBtnClick = () => setIsClicked(prev => !prev)
+  const navigate = useNavigate()
+
+  const verificandoSeExpirou = async () => {
+    const data = localStorage.getItem('user_access_data')
+    if (!data) return
+    const { id } = JSON.parse(data)
+
+    try {
+      const { getAlunoById } = fetchData()
+      await getAlunoById(id)
+    } catch (error) {
+      if (error.response?.data?.message === "Token expirado.") {
+        alert("Sua sessão expirou, faça login novamente para acessar nossos serviços.")
+        localStorage.removeItem("user_access_data")
+        navigate("/")
+      } else {
+        console.error("Erro ao buscar os dados:", error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    verificandoSeExpirou()
+  }, [])
 
   return (
     <div className={styles.container}>
