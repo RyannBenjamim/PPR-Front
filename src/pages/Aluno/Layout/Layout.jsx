@@ -24,6 +24,7 @@ const AlunoLayout = () => {
   const navigate = useNavigate()
   
   const verificandoSeExpirou = async () => {
+    console.log("entrou aqui")
     const data = localStorage.getItem('user_access_data')
     if (!data) return
     const { id } = JSON.parse(data)
@@ -33,6 +34,7 @@ const AlunoLayout = () => {
       await getAlunoById(id)
     } catch (error) {
       if (error.response?.data?.message === "Token expirado.") {
+        console.log("expirou mesmo")
         setModalIsClicked(true)
       } else {
         console.error("Erro ao buscar os dados:", error)
