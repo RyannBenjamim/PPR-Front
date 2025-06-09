@@ -5,6 +5,7 @@ import Button from "../../../components/Button/Button"
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../../../images/logo02.png"
 import { useState, useEffect } from "react"
+import fetchData from "../../../utils/fetchData"
 
 const links = [
   { name: "Dashboard", icon: "fa-solid fa-house", path: "" },
